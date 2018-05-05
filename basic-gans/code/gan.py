@@ -10,16 +10,16 @@ def sample_Z(m, n):
 
 def generator(Z,hsize=[16, 16],reuse=False):
     with tf.variable_scope("GAN/Generator",reuse=reuse):
-        h1 = tf.layers.dense(Z,hsize[0],activation=tf.nn.tanh)
-        h2 = tf.layers.dense(h1,hsize[1],activation=tf.nn.tanh)
+        h1 = tf.layers.dense(Z,hsize[0],activation=tf.nn.leaky_relu)
+        h2 = tf.layers.dense(h1,hsize[1],activation=tf.nn.leaky_relu)
         out = tf.layers.dense(h2,2)
 
     return out
 
 def discriminator(X,hsize=[16, 16],reuse=False):
     with tf.variable_scope("GAN/Discriminator",reuse=reuse):
-        h1 = tf.layers.dense(X,hsize[0],activation=tf.nn.tanh)
-        h2 = tf.layers.dense(h1,hsize[1],activation=tf.nn.tanh)
+        h1 = tf.layers.dense(X,hsize[0],activation=tf.nn.leaky_relu)
+        h2 = tf.layers.dense(h1,hsize[1],activation=tf.nn.leaky_relu)
         h3 = tf.layers.dense(h2,2)
         out = tf.layers.dense(h3,1)
 
@@ -39,16 +39,18 @@ gen_loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=f_logit
 gen_vars = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES,scope="GAN/Generator")
 disc_vars = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES,scope="GAN/Discriminator")
 
-gen_step = tf.train.AdamOptimizer().minimize(gen_loss,var_list = gen_vars) # G Train step
-disc_step = tf.train.AdamOptimizer().minimize(disc_loss,var_list = disc_vars) # D Train step
+gen_step = tf.train.RMSPropOptimizer(learning_rate=0.001).minimize(gen_loss,var_list = gen_vars) # G Train step
+disc_step = tf.train.RMSPropOptimizer(learning_rate=0.001).minimize(disc_loss,var_list = disc_vars) # D Train step
+
+
 
 # sess = tf.Session(config=config)
 sess = tf.Session()
 tf.global_variables_initializer().run(session=sess)
 
 batch_size = 256
-nd_steps = 50
-ng_steps = 50
+nd_steps = 10
+ng_steps = 10
 
 x_plot = sample_data(n=batch_size)
 
@@ -92,7 +94,7 @@ for i in range(10001):
 
 
         plt.legend((rrd, rrg, grd, grg), ("Real Data Before G step","Real Data After G step",
-                               "Generated Data Before G step","Generated Data After D step"))
+                               "Generated Data Before G step","Generated Data After G step"))
         plt.title('Transformed Features at Iteration %d'%i)
         plt.tight_layout()
         plt.savefig('../plots/features/feature_transform_%d.png'%i)
@@ -106,7 +108,7 @@ for i in range(10001):
         grgc = plt.scatter(np.mean(grep_gstep[:,0]), np.mean(grep_gstep[:,1]),s=100, alpha=0.5)
 
         plt.legend((rrdc, rrgc, grdc, grgc), ("Real Data Before G step","Real Data After G step",
-                               "Generated Data Before G step","Generated Data After D step"))
+                               "Generated Data Before G step","Generated Data After G step"))
 
         plt.title('Centroid of Transformed Features at Iteration %d'%i)
         plt.tight_layout()

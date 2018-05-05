@@ -164,17 +164,7 @@ and `Generator` indicates equilibrium.
 
 In this section we plot the real and generated samples after every `1000` iterations of training. These plots visualize how `Generator` network starts with random initial mapping between the input and dataset vector space and then it gradually progresses to resemble the real dataset samples.
 
-![samples_training_0](plots/iterations/iteration_0.png)
-![samples_training_1000](plots/iterations/iteration_1000.png)
-![samples_training_2000](plots/iterations/iteration_2000.png)
-![samples_training_3000](plots/iterations/iteration_3000.png)
-![samples_training_4000](plots/iterations/iteration_4000.png)
-![samples_training_5000](plots/iterations/iteration_5000.png)
-![samples_training_6000](plots/iterations/iteration_6000.png)
-![samples_training_7000](plots/iterations/iteration_7000.png)
-![samples_training_8000](plots/iterations/iteration_8000.png)
-![samples_training_9000](plots/iterations/iteration_9000.png)
-![samples_training_10000](plots/iterations/iteration_10000.png)
+![samples_training](images/iterations.gif)
 
 
 ### Visualizing the Generator Update
@@ -184,17 +174,7 @@ In this section we plot the feature transform of the real and generated samples 
 - From the centroids we can see that centroid of the features of generated data samples almost always moves towards the centroid of the features of real data samples.
 - We can also see that as the iterations increase the transformed features of real samples get more and more mixed with transformed features of generated samples. This is also expected because at the end of training `Discriminator` network should not be able of distinguish between real and generated samples. Hence at the end of training transformed features for both the samples should coincide.
 
-![feature_transform_0](plots/features/feature_transform_0.png) ![feature_transform_centroid_0](plots/features/feature_transform_centroid_0.png)
-![feature_transform_1000](plots/features/feature_transform_1000.png) ![feature_transform_centroid_1000](plots/features/feature_transform_centroid_1000.png)
-![feature_transform_2000](plots/features/feature_transform_2000.png) ![feature_transform_centroid_2000](plots/features/feature_transform_centroid_2000.png)
-![feature_transform_3000](plots/features/feature_transform_3000.png) ![feature_transform_centroid_3000](plots/features/feature_transform_centroid_3000.png)
-![feature_transform_4000](plots/features/feature_transform_4000.png) ![feature_transform_centroid_4000](plots/features/feature_transform_centroid_4000.png)
-![feature_transform_5000](plots/features/feature_transform_5000.png) ![feature_transform_centroid_5000](plots/features/feature_transform_centroid_5000.png)
-![feature_transform_6000](plots/features/feature_transform_6000.png) ![feature_transform_centroid_6000](plots/features/feature_transform_centroid_6000.png)
-![feature_transform_7000](plots/features/feature_transform_7000.png) ![feature_transform_centroid_7000](plots/features/feature_transform_centroid_7000.png)
-![feature_transform_8000](plots/features/feature_transform_8000.png) ![feature_transform_centroid_8000](plots/features/feature_transform_centroid_8000.png)
-![feature_transform_9000](plots/features/feature_transform_9000.png) ![feature_transform_centroid_9000](plots/features/feature_transform_centroid_9000.png)
-![feature_transform_10000](plots/features/feature_transform_10000.png) ![feature_transform_centroid_10000](plots/features/feature_transform_centroid_10000.png)
+![feature_transform](images/feature_transform.gif) ![feature_transform_centroid](images/feature_transform_centroid.gif)
 
 ## Discussion and Future Work
 
